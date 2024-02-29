@@ -8,7 +8,8 @@ import model.Usuario;
 public class HibernateTest {
 	
 	@Test
-	public void tesHibernateUtil() {
+	public void tesHibernateSalvar() {
+		
 		DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
 		
 		Usuario pessoa = new Usuario();
@@ -20,6 +21,35 @@ public class HibernateTest {
 		pessoa.setLogin("guto123");
 		
 		daoGeneric.salvar(pessoa);
+		
+	}
+	
+	@Test
+	public void testHibernateBuscar() {
+		
+		DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
+		
+		Usuario pessoa = new Usuario();
+		pessoa.setId(1L);
+		
+		pessoa = daoGeneric.pesquisar(pessoa);
+		
+		System.out.println(pessoa);
+		
+	}
+	
+	@Test
+	public void testHibernateBuscarId() {
+		
+		DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
+		
+		Usuario pessoa = daoGeneric.pesquisarId(Usuario.class, 1L);
+		
+		System.out.println(pessoa);
+		
 	}
 
 }
+
+
+
