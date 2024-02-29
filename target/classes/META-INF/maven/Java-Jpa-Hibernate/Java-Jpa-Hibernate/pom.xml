@@ -5,6 +5,13 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Java-Jpa-Hibernate</name>
   
+    <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+  </properties>
+  
   <dependencies>
 	  
 	<dependency>
@@ -17,7 +24,8 @@
 	<dependency>
 		<groupId>org.postgresql</groupId>
 		<artifactId>postgresql</artifactId>
-		<version>9.4-1200-jdbc41</version>
+		<version>9.2-1003-jdbc4</version>
+		<scope>compile</scope>
 	</dependency>
 	
 	<dependency>
@@ -29,8 +37,26 @@
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-entitymanager</artifactId>
-	    <version>5.6.15.Final</version>
+	    <version>5.5.4.Final</version>
 	</dependency>
+	
+<!--	<dependency>
+		<groupId>javax.xml.bind</groupId>
+		<artifactId>jaxb-api</artifactId>
+		<version>2.2.11</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.sun.xml.bind</groupId>
+		<artifactId>jaxb-core</artifactId>
+		<version>2.2.11</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.sun.xml.bind</groupId>
+		<artifactId>jaxb-impl</artifactId>
+		<version>2.2.11</version>
+	</dependency>-->
 	
   </dependencies>
 </project>
