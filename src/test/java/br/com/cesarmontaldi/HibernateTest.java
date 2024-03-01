@@ -21,11 +21,11 @@ public class HibernateTest {
 		
 		Usuario pessoa = new Usuario();
 		
-		pessoa.setNome("Barbara Silva");
-		pessoa.setEmail("barbara@hotmail.com");
-		pessoa.setSenha("963147");
-		pessoa.setIdade(26);
-		pessoa.setLogin("barbSilva");
+		pessoa.setNome("Paulo Moreira");
+		pessoa.setEmail("paulo@gmail.com");
+		pessoa.setSenha("943671");
+		pessoa.setIdade(39);
+		pessoa.setLogin("paulo123");
 		
 		daoGeneric.salvar(pessoa);
 	}
@@ -80,10 +80,71 @@ public class HibernateTest {
 		
 		for (Usuario usuario : users) {
 			
-			System.out.println(usuario);
 			System.out.println("-----------------------------------------------");
+			System.out.println(usuario);
 		}
-	} 
+	}
+	
+	@Test
+	public void testQueryList() {
+		
+		DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
+		
+		List<Usuario> users = daoGeneric.getEntityManager().createQuery("from Usuario where nome like '%C%'").getResultList();
+		
+		for (Usuario usuario : users) {
+			
+			System.out.println("-----------------------------------------------");
+			System.out.println(usuario);
+			
+		}
+	}
+	
+	@Test
+	public void testQueryListMaxResult() {
+		
+		DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
+		
+		List<Usuario> users = daoGeneric.getEntityManager()
+				.createQuery("from Usuario where order by nome")
+				.setMaxResults(5)
+				.getResultList();
+		
+		for (Usuario usuario : users) {
+			
+			System.out.println("-----------------------------------------------");
+			System.out.println(usuario);
+			
+		}
+	}
+	
+	@Test
+	public void testQueryListParameter() {
+		
+		DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
+		List<Usuario> users = daoGeneric.getEntityManager()
+				.createQuery("from Usuario where nome = :nome")
+				.setParameter("nome", "Barbara Silva").getResultList();
+		
+		for (Usuario usuario : users) {
+			
+			System.out.println("-----------------------------------------------");
+			System.out.println(usuario);
+			
+		}
+	}
+	
+	@Test
+	public void testQuerySomaIdade() {
+		
+		DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
+		
+		Long somaIdade = (Long) daoGeneric.getEntityManager().createQuery("select sum(u.idade) from Usuario u ").getSingleResult();
+		Double mediaIdade = (Double) daoGeneric.getEntityManager().createQuery("select avg(u.idade) from Usuario u ").getSingleResult();
+		
+		System.out.println("Soma das idades: " + somaIdade);
+		System.out.println("Média das idades: " + mediaIdade);
+	}
 	
 	@Test
 	public void testDeleteId() {
@@ -95,8 +156,6 @@ public class HibernateTest {
 		daoGeneric.deleteId(pessoa);
 	}
 	
-	
-
 }
 
 

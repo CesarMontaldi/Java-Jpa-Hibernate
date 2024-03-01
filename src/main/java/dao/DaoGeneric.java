@@ -45,7 +45,7 @@ public class DaoGeneric <Entity> {
 			return entityPk;
 		}
 		
-		public List<Entity> listar(Class<Entity> entity) {
+		public List<Entity> listar(Class<Entity> entity) { /* Listar todos */
 			
 			EntityTransaction transaction = entityManager.getTransaction();
 			transaction.begin();
@@ -69,6 +69,11 @@ public class DaoGeneric <Entity> {
 			
 			transaction.commit(); /* grava a alteração */
 		}
+		
+		public EntityManager getEntityManager() {
+			return entityManager;
+		}
+		
 }
 
 
