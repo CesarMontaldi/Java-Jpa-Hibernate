@@ -1,11 +1,14 @@
 package model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator; 
 
 @Entity
@@ -25,6 +28,8 @@ public class Usuario {
 	private String login;
 	private int idade;
 	
+	@OneToMany(mappedBy = "usuario")
+	private List<Telefone> telefones;
 	
 	public Long getId() {
 		return id;
@@ -63,6 +68,14 @@ public class Usuario {
 	
 	public void setIdade(int idade) {
 		this.idade = idade;
+	}
+	
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+	
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
 	}
 	
 	@Override
