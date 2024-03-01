@@ -147,6 +147,20 @@ public class HibernateTest {
 	}
 	
 	@Test
+	public void testNamedQuery() {
+		
+		DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
+		List<Usuario> users = daoGeneric.getEntityManager().createNamedQuery("Usuario.findAll").getResultList();
+		
+		for (Usuario usuario : users) {
+			
+			System.out.println("-----------------------------------------------");
+			System.out.println(usuario);
+			
+		}
+	}
+	
+	@Test
 	public void testDeleteId() {
 		
 		DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
