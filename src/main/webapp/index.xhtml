@@ -9,10 +9,10 @@
       </head>
        
       <h:body>
-      	<h:form>
-      		<h:panelGrid columns="1">
+      	<h:form >
+      		<h:panelGrid columns="1" style="margin-bottom:10px; margin-left:10px;" >
 	      		<h:outputLabel value="Id:" />
-	      		<h:inputText value="#{usuarioBean.usuario.id}" readonly="true"/>
+	      		<h:inputText value="#{usuarioBean.usuario.id}" readonly="true" />
 
 	      		<h:outputLabel value="Nome:" />
 	      		<h:inputText value="#{usuarioBean.usuario.nome}" />
@@ -29,8 +29,43 @@
 	      		<h:outputLabel value="Senha:" />
 	      		<h:inputSecret value="#{usuarioBean.usuario.senha}" />
       		</h:panelGrid>
-      		<h:commandButton action="#{usuarioBean.salvar}" value="Salvar" />
-      		<h:commandButton action="#{usuarioBean.novo}" value="Novo" />
+      		<h:commandButton action="#{usuarioBean.salvar}" value="Salvar" style="margin-left:15px;" />
+      		<h:commandButton action="#{usuarioBean.novo}" value="Novo" style="margin-left:15px;" />
+      		
+      		<h:dataTable value="#{usuarioBean.usuarios}" var="usuario" style="margin-top:10px; margin-left:15px;" cellpadding="5" border="1">
+      			<f:facet name="header">Lista de Usuários</f:facet>
+      			<h:column>
+      				<f:facet name="header">ID</f:facet>
+      				<h:outputText value="#{usuario.id}" />
+      			</h:column>
+      			
+      			<h:column>
+      				<f:facet name="header">Nome</f:facet>
+      				<h:outputText value="#{usuario.nome}" />
+      			</h:column>
+      			
+    			<h:column>
+    				<f:facet name="header">Idade</f:facet>
+      				<h:outputText value="#{usuario.idade}" />
+      			</h:column>
+      			
+      			<h:column>
+      				<f:facet name="header">Email</f:facet>
+      				<h:outputText value="#{usuario.email}" />
+      			</h:column>
+      			
+      			<h:column>
+      				<f:facet name="header">Login</f:facet>
+      				<h:outputText value="#{usuario.login}" />
+      			</h:column>
+      			
+      			<h:column>
+      				<f:facet name="header">Editar</f:facet>
+      				<h:commandButton value="Editar" >
+      					<f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuario}" />
+      				</h:commandButton>
+      			</h:column>
+      		</h:dataTable>
       	</h:form>
       </h:body>
 </html>
