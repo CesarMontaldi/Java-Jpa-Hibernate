@@ -17,7 +17,7 @@ public class HibernateUtil {
 		try {
 			
 			if(factory == null) {
-				factory = Persistence.createEntityManagerFactory("Java-Jpa-Hibernate");
+				factory = Persistence.createEntityManagerFactory("Projeto-Gerencial");
 			}
 			
 		} catch (Exception e) {
