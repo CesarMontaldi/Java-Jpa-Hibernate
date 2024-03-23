@@ -23,9 +23,14 @@
 	      		<h:outputLabel value="Email:" />
 	      		<h:inputText value="#{usuarioBean.usuario.email}" />
 	      		
+	      		<h:outputLabel value="Login:" />
+	      		<h:inputText value="#{usuarioBean.usuario.login}" />
+	      		
 	      		<h:outputLabel value="Senha:" />
-	      		<h:inputText value="#{usuarioBean.usuario.senha}" />
+	      		<h:inputSecret value="#{usuarioBean.usuario.senha}" />
       		</h:panelGrid>
+      		<h:commandButton action="#{usuarioBean.salvar}" value="Salvar" />
+      		<h:commandButton action="#{usuarioBean.novo}" value="Novo" />
       	</h:form>
       </h:body>
 </html>

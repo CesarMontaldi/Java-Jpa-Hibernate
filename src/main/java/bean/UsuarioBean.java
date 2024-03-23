@@ -20,5 +20,13 @@ public class UsuarioBean {
 		this.usuario = usuario;
 	}
 	
+	public String salvar() {
+		daoGeneric.salvar(usuario);
+		return "";
+	}
 	
+	public String novo() {
+		usuario = new Usuario();
+		return "";
+	}
 }

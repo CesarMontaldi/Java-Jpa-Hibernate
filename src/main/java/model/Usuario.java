@@ -27,7 +27,7 @@ public class Usuario {
 	private String email;
 	private String senha;
 	private String login;
-	private int idade;
+	private Integer idade;
 	
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
 	private List<Telefone> telefones;
@@ -63,11 +63,11 @@ public class Usuario {
 		this.login = login;
 	}
 	
-	public int getIdade() {
+	public Integer getIdade() {
 		return idade;
 	}
 	
-	public void setIdade(int idade) {
+	public void setIdade(Integer idade) {
 		this.idade = idade;
 	}
 	
