@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,6 +29,7 @@ public class Usuario {
 	private String senha;
 	private String login;
 	private Integer idade;
+	private String sexo;
 	
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
 	private List<Telefone> telefones;
@@ -71,12 +73,36 @@ public class Usuario {
 		this.idade = idade;
 	}
 	
+	public String getSexo() {
+		return sexo;
+	}
+	
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+	
 	public List<Telefone> getTelefones() {
 		return telefones;
 	}
 	
 	public void setTelefones(List<Telefone> telefones) {
 		this.telefones = telefones;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(id, other.id);
 	}
 	
 	@Override

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+      
+      <h:head>
+      	<title>Cadastro de Usuários</title>
+      </h:head>
+       
+      <h:body>
+      	
+      	<p:growl id="msg" errorStyle="color:red; font-size:15px;" infoStyle="color:green; font-size:15px;" showDetail="true" showSummary="false" style="margin-right:15px;" />
+      
+      	<h:form id="formNav" style="margin-bottom:15px;">
+	      	<p:breadCrumb id="navLinks">
+	      		<p:menuitem />
+	      		<p:menuitem value="Home" action="home.jsf"/>
+	      		<p:menuitem value="Login" action="index.jsf"/>
+	      	</p:breadCrumb>
+      	</h:form>
+      	
+      	<h:form id="formUsuario">
+
+      		<p:panelGrid columns="2" style="margin-bottom:10px; margin-left:10px;" >
+	      		<p:outputLabel value="Id:" />
+	      		<p:inputText id="id" value="#{usuarioBean.usuario.id}" readonly="true" />
+				
+				<p:outputLabel value="Nome" />
+	      		<p:inputText id="nome" value="#{usuarioBean.usuario.nome}" required="true" requiredMessage="Informe o nome!"/>
+	      		
+	      		<p:outputLabel value="Idade:" />
+	      		<p:inputText id="idade" value="#{usuarioBean.usuario.idade}" />
+	      		
+	      		<p:outputLabel value="Email:" />
+	      		<p:inputText id="email" value="#{usuarioBean.usuario.email}" />
+	      		
+	      		<p:outputLabel value="Login:" />
+	      		<p:inputText id="login" value="#{usuarioBean.usuario.login}" />
+	      		
+	      		<p:outputLabel value="Senha:" />
+	      		<h:inputSecret id="senha" value="#{usuarioBean.usuario.senha}" />
+	      		
+	      		<p:outputLabel id="sexo" value="Sexo:" />
+	      		<p:selectOneMenu value="#{usuarioBean.usuario.sexo}">
+	      			<f:selectItem itemValue="MASCULINO" itemLabel="Masculino"/>
+	      			<f:selectItem itemValue="FEMININO" itemLabel="Feminino"/>
+	      		</p:selectOneMenu>
+	      	</p:panelGrid>
+      		
+      		<h:commandButton id="saveButton" value="Salvar" action="#{usuarioBean.salvar}" style="margin-left:15px;" />
+      		<h:commandButton id="newButton" action="#{usuarioBean.novo}" value="Novo" style="margin-left:15px;" />
+			
+			</h:form>
+			
+			<h:form id="formTableUsuario">
+			
+      		<p:dataTable value="#{usuarioBean.usuarios}" var="usuario" style="margin-top:10px; margin-left:15px;" cellpadding="5" border="1">
+      			<f:facet name="header">Lista de Usuários</f:facet>
+      			<p:column>
+      				<f:facet name="header">ID</f:facet>
+      				<h:outputText value="#{usuario.id}" />
+      			</p:column>
+      			
+      			<p:column>
+      				<f:facet name="header">Nome</f:facet>
+      				<h:outputText value="#{usuario.nome}" />
+      			</p:column>
+      			
+    			<p:column>
+    				<f:facet name="header">Idade</f:facet>
+      				<h:outputText value="#{usuario.idade}" />
+      			</p:column>
+      			
+      			<p:column>
+      				<f:facet name="header">Email</f:facet>
+      				<h:outputText value="#{usuario.email}" />
+      			</p:column>
+      			
+      			<p:column>
+      				<f:facet name="header">Login</f:facet>
+      				<h:outputText value="#{usuario.login}" />
+      			</p:column>
+      			
+      			<p:column>
+      				<f:facet name="header">Editar</f:facet>
+      				<h:commandButton id="editar" value="Editar" immediate="true">
+      					<f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuario}" />
+      					<f:ajax execute="editar" render=":formUsuario"/>
+      				</h:commandButton>
+      			</p:column>
+      			
+      			<p:column>
+      				<f:facet name="header">Excluir</f:facet>
+      				<h:commandButton id="excluir" action="#{usuarioBean.deletar}" value="Excluir">
+      					<f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuario}" />
+      					<f:ajax execute="excluir" render="@form :formUsuario :msg"/>
+      				</h:commandButton>
+      			</p:column>
+      		</p:dataTable>
+      	</h:form>
+      </h:body>
+</html>

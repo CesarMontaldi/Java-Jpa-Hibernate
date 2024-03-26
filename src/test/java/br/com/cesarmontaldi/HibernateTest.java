@@ -162,7 +162,7 @@ public class HibernateTest {
 	}
 	
 	@Test
-	public void testDeleteId() {
+	public void testDeleteId() throws Exception {
 		
 		DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
 		

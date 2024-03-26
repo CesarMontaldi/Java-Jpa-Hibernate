@@ -3,7 +3,9 @@ package bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -22,22 +24,28 @@ public class UsuarioBean {
 	public Usuario getUsuario() {
 		return usuario;
 	}
+	
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 	
 	public List<Usuario> getUsuarios() {
-		usuarios = daoGeneric.listar(Usuario.class);
 		return usuarios;
 	}
-	
+
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 	
+	@PostConstruct
+	public void init() {
+		usuarios = daoGeneric.listar(Usuario.class);
+	}
+	
 	public String salvar() {
 		daoGeneric.salvar(usuario);
-		msgInfo("Cadastro realizado com sucesso!");
+		usuarios.add(usuario);
+		message(FacesMessage.SEVERITY_INFO, "Cadastro salvo com sucesso!");
 		return "";
 	}
 	
@@ -46,24 +54,29 @@ public class UsuarioBean {
 		return "";
 	}
 	
-	public List<Usuario> buscarUsuarios() {
-		usuarios = daoGeneric.listar(Usuario.class);
-		return usuarios;
-	}
 	
 	public String deletar() {
-		daoGeneric.deleteId(usuario);
-		usuario = new Usuario();
-		msgInfo("Removido com sucesso!");
+		try {
+			daoGeneric.deleteId(usuario);
+			usuarios.remove(usuario);
+			usuario = new Usuario();
+			message(FacesMessage.SEVERITY_INFO, "Removido com sucesso!");
+			
+		} catch (Exception e) {
+			if (e.getCause() instanceof org.postgresql.util.PSQLException) {
+				message(FacesMessage.SEVERITY_ERROR, usuario.getNome().split(" ")[0] + " Possui telefone cadastrado!");
+			}
+		}
 		return "";
 	}
 	
-	public void msgInfo(String msg) {
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", msg));
+	public String home() {
+		return "home.jsf";
 	}
 	
-	public void msgError(String msg) {
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", msg));
+	public void message(Severity severityInfo, String msg) {
+		FacesMessage message = new FacesMessage(severityInfo, msg, null);
+		FacesContext.getCurrentInstance().addMessage(null,message);
 	}
 	
 }

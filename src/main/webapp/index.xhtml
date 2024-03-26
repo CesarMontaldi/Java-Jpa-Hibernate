@@ -1,81 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "htth://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
       
-      <head>
-      	<title>Cadastro de Usuários</title>
-      </head>
+      <h:head>
+      	<title>Login</title>
+      </h:head>
        
       <h:body>
-      	<h:form >
-      		<h:messages style="list-style:none;" errorStyle="color:red; font-size:18px;" infoStyle="color:green; font-size:18px;" showDetail="true" showSummary="false"/>
-      		<h:panelGrid columns="1" style="margin-bottom:10px; margin-left:10px;" >
-	      		<h:outputLabel value="Id:" />
-	      		<h:inputText value="#{usuarioBean.usuario.id}" readonly="true" />
-
-	      		<h:outputLabel value="Nome:" />
-	      		<h:inputText value="#{usuarioBean.usuario.nome}" required="true" requiredMessage="Informe o nome!"/>
-	      		
-	      		<h:outputLabel value="Idade:" />
-	      		<h:inputText value="#{usuarioBean.usuario.idade}" />
-	      		
-	      		<h:outputLabel value="Email:" />
-	      		<h:inputText value="#{usuarioBean.usuario.email}" />
-	      		
-	      		<h:outputLabel value="Login:" />
-	      		<h:inputText value="#{usuarioBean.usuario.login}" />
-	      		
-	      		<h:outputLabel value="Senha:" />
-	      		<h:inputSecret value="#{usuarioBean.usuario.senha}" />
-      		</h:panelGrid>
-      		<h:commandButton action="#{usuarioBean.salvar}" value="Salvar" style="margin-left:15px;" />
-      		<h:commandButton action="#{usuarioBean.novo}" value="Novo" style="margin-left:15px;" />
+      	
+        <h:form style="margin-bottom:15px;">
+	      	<p:breadCrumb>
+	      		<p:menuitem />
+	      		<p:menuitem value="Home" action="home.jsf"/>
+	      		<p:menuitem value="Login" action="index.jsf"/>
+	      	</p:breadCrumb>
+	    <p:growl style="margin-right:15px;" errorStyle="color:red; font-size:15px;" infoStyle="color:green; font-size:15px;" showDetail="true" showSummary="false" only-most-severe="true" value="Visible on medium or large screen" offset-sm="1" />
       	</h:form>
       	
-      	<h:form>	
-      		<h:dataTable value="#{usuarioBean.usuarios}" var="usuario" style="margin-top:10px; margin-left:15px;" cellpadding="5" border="1">
-      			<f:facet name="header">Lista de Usuários</f:facet>
-      			<h:column>
-      				<f:facet name="header">ID</f:facet>
-      				<h:outputText value="#{usuario.id}" />
-      			</h:column>
-      			
-      			<h:column>
-      				<f:facet name="header">Nome</f:facet>
-      				<h:outputText value="#{usuario.nome}" />
-      			</h:column>
-      			
-    			<h:column>
-    				<f:facet name="header">Idade</f:facet>
-      				<h:outputText value="#{usuario.idade}" />
-      			</h:column>
-      			
-      			<h:column>
-      				<f:facet name="header">Email</f:facet>
-      				<h:outputText value="#{usuario.email}" />
-      			</h:column>
-      			
-      			<h:column>
-      				<f:facet name="header">Login</f:facet>
-      				<h:outputText value="#{usuario.login}" />
-      			</h:column>
-      			
-      			<h:column>
-      				<f:facet name="header">Editar</f:facet>
-      				<h:commandButton value="Editar" >
-      					<f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuario}" />
-      				</h:commandButton>
-      			</h:column>
-      			
-      			<h:column>
-      				<f:facet name="header">Excluir</f:facet>
-      				<h:commandButton action="#{usuarioBean.deletar}" value="Excluir" >
-      					<f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuario}" />
-      				</h:commandButton>
-      			</h:column>
-      		</h:dataTable>
+      	<h:form >
+      		<p:panelGrid columns="1" style="margin-bottom:10px; margin-left:10px; margin-toh:15px;" >
+	      		<p:outputLabel value="Login:" />
+	      		<p:inputText value="#{usuarioBean.usuario.login}" required="true" requiredMessage="Informe o login!"/>
+	      		<p:outputLabel value="Senha:" />
+	      		<h:inputSecret value="#{usuarioBean.usuario.senha}" required="true" requiredMessage="Informe a senha!" />
+      		</p:panelGrid>
+      			<h:commandButton action="#{usuario.home}" value="Acessar" />
+      		
       	</h:form>
+      	
       </h:body>
 </html>

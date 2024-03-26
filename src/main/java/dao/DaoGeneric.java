@@ -58,7 +58,7 @@ public class DaoGeneric <Entity> {
 		}
 		
 		
-		public void deleteId(Entity entity) { /* Deleta por ID */
+		public void deleteId(Entity entity) throws Exception { /* Deleta por ID */
 			
 			Object id = HibernateUtil.getprimaryKey(entity);
 			
