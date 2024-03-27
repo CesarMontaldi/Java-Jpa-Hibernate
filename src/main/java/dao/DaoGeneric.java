@@ -39,8 +39,8 @@ public class DaoGeneric <Entity> {
 		}
 		
 		public Entity pesquisarId( Class<Entity> entity, Long id) { /* Consultar por ID*/
-			
-			Entity entityPk = (Entity) entityManager.find(entity, id);
+			entityManager.clear();
+			Entity entityPk = (Entity) entityManager.createQuery("from " + entity.getSimpleName() + " where id = " + id).getSingleResult();
 			
 			return entityPk;
 		}
@@ -49,8 +49,8 @@ public class DaoGeneric <Entity> {
 			
 			EntityTransaction transaction = entityManager.getTransaction();
 			transaction.begin();
-			
-			List<Entity> users = entityManager.createQuery("from " + entity.getName() + " order by id ASC").getResultList();
+			entityManager.clear();
+			List<Entity> users = entityManager.createQuery("from " + entity.getSimpleName() + " order by id ASC").getResultList();
 			
 			transaction.commit();
 			

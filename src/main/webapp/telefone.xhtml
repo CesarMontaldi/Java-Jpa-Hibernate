@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+      
+      <h:head>
+      	<h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css" />
+		<h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+		<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+      	<title>Cadastro de Telefones</title>
+      </h:head>
+       
+      <h:body>
+      	
+      	<p:growl id="msg" errorStyle="color:red; font-size:15px;" infoStyle="color:green; font-size:15px;" showDetail="true" showSummary="false" style="margin-right:15px;" />
+      
+      	<h:form id="formNav" style="margin-bottom:15px;">
+	      	<p:breadCrumb id="navLinks">
+	      		<p:menuitem />
+	      		<p:menuitem value="Usuários" action="usuario.jsf"/>
+	      		<p:menuitem value="Login" action="index.jsf"/>
+	      	</p:breadCrumb>
+      	</h:form>
+      	
+      	<h:form id="formTelefone">
+      		
+      		<p:panelGrid columns="2" style="margin-bottom:10px;">
+      			<p:outputLabel value="Usuario: "/>
+      			<h:outputText value="#{telefoneBean.usuario.nome}"/>
+      			
+      			<p:outputLabel value="Tipo: "/>
+      			<p:inputText value="#{telefoneBean.telefone.tipo}"/>
+      			
+      			<p:outputLabel value="Número: "/>
+      			<p:inputText value="#{telefoneBean.telefone.numero}"/>
+      		</p:panelGrid>
+      		
+      		<h:commandButton action="#{telefoneBean.salvar}" value="Salvar" />
+		</h:form>
+			
+		<h:form id="formTableTelefone" style="margin-top:10px;">
+			
+			<p:dataTable value="#{telefoneBean.usuario.telefones}" var="telefone">
+				<f:facet name="header">Lista de Telefones</f:facet>
+      			
+      			<p:column>
+      				<f:facet name="header">ID</f:facet>
+      				<h:outputText value="#{telefone.id}" />
+      			</p:column>
+      			
+      			<p:column>
+      				<f:facet name="header">Tipo</f:facet>
+      				<h:outputText value="#{telefone.tipo}" />
+      			</p:column>
+      			
+      			<p:column>
+      				<f:facet name="header">Número</f:facet>
+      				<h:outputText value="#{telefone.numero}" />
+      			</p:column>
+      			
+      			<p:column>
+      				<f:facet name="header">Editar</f:facet>
+      				<h:commandButton id="editar" value="Editar">
+      					<f:setPropertyActionListener value="#{telefone}" target="#{telefoneBean.telefone}" />
+      					<f:ajax execute="editar" render="@form :formTelefone :msg" />
+      				</h:commandButton>
+      			</p:column>
+      			
+     			<p:column>
+      				<f:facet name="header">Excluir</f:facet>
+      				<h:commandButton id="excluir" action="#{telefoneBean.deletar}" value="Excluir">
+      					<f:setPropertyActionListener value="#{telefone}" target="#{telefoneBean.telefone}" />
+      					<f:ajax execute="excluir" render="@form :formTelefone :msg" />
+      				</h:commandButton>
+      			</p:column>
+			
+			</p:dataTable>
+			
+      	</h:form>
+      </h:body>
+</html>

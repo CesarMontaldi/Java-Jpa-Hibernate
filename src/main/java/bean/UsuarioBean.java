@@ -11,14 +11,17 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import dao.DaoGeneric;
+import dao.DaoUsuario;
 import model.Usuario;
+import utils.AddMessage;
 
 @ManagedBean(name = "usuarioBean")
 @ViewScoped
 public class UsuarioBean {
 	
 	private Usuario usuario = new Usuario();
-	private DaoGeneric<Usuario> daoGeneric = new DaoGeneric<>();
+	//private DaoGeneric<Usuario> daoGeneric = new DaoGeneric<>();
+	private DaoUsuario daoGeneric = new DaoUsuario<Usuario>();
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
 	
 	public Usuario getUsuario() {
@@ -45,7 +48,7 @@ public class UsuarioBean {
 	public String salvar() {
 		daoGeneric.salvar(usuario);
 		usuarios.add(usuario);
-		message(FacesMessage.SEVERITY_INFO, "Cadastro salvo com sucesso!");
+		AddMessage.message(FacesMessage.SEVERITY_INFO, "Cadastro salvo com sucesso!");
 		return "";
 	}
 	
@@ -57,14 +60,14 @@ public class UsuarioBean {
 	
 	public String deletar() {
 		try {
-			daoGeneric.deleteId(usuario);
+			daoGeneric.removeUsuario(usuario);
 			usuarios.remove(usuario);
 			usuario = new Usuario();
-			message(FacesMessage.SEVERITY_INFO, "Removido com sucesso!");
+			AddMessage.message(FacesMessage.SEVERITY_INFO, "Usuário removido com sucesso!");
 			
 		} catch (Exception e) {
 			if (e.getCause() instanceof org.postgresql.util.PSQLException) {
-				message(FacesMessage.SEVERITY_ERROR, usuario.getNome().split(" ")[0] + " Possui telefone cadastrado!");
+				AddMessage.message(FacesMessage.SEVERITY_ERROR, usuario.getNome().split(" ")[0] + " Possui telefone cadastrado!");
 			}
 		}
 		return "";
@@ -73,10 +76,6 @@ public class UsuarioBean {
 	public String home() {
 		return "home.jsf";
 	}
-	
-	public void message(Severity severityInfo, String msg) {
-		FacesMessage message = new FacesMessage(severityInfo, msg, null);
-		FacesContext.getCurrentInstance().addMessage(null,message);
-	}
+
 	
 }

@@ -6,6 +6,9 @@
       xmlns:p="http://primefaces.org/ui">
       
       <h:head>
+      	<h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css" />
+		<h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+		<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
       	<title>Cadastro de Usuários</title>
       </h:head>
        
@@ -16,7 +19,7 @@
       	<h:form id="formNav" style="margin-bottom:15px;">
 	      	<p:breadCrumb id="navLinks">
 	      		<p:menuitem />
-	      		<p:menuitem value="Home" action="home.jsf"/>
+	      		<p:menuitem value="Telefones" action="telefone.jsf"/>
 	      		<p:menuitem value="Login" action="index.jsf"/>
 	      	</p:breadCrumb>
       	</h:form>
@@ -49,7 +52,7 @@
 	      		</p:selectOneMenu>
 	      	</p:panelGrid>
       		
-      		<h:commandButton id="saveButton" value="Salvar" action="#{usuarioBean.salvar}" style="margin-left:15px;" />
+      		<h:commandButton id="saveButton" value="Salvar" action="#{usuarioBean.salvar}" style="margin-left:15px;" icon="pi pi-save" />
       		<h:commandButton id="newButton" action="#{usuarioBean.novo}" value="Novo" style="margin-left:15px;" />
 			
 			</h:form>
@@ -98,6 +101,14 @@
       					<f:ajax execute="excluir" render="@form :formUsuario :msg"/>
       				</h:commandButton>
       			</p:column>
+      			
+     			<p:column>
+      				<f:facet name="header">Telefones</f:facet>
+      				<h:commandButton id="telefone"  action="telefone.jsf" value="Telefones">
+      				<f:param name="idUser" value="#{usuario.id}"/>
+      				</h:commandButton>
+      			</p:column>
+      			
       		</p:dataTable>
       	</h:form>
       </h:body>
